@@ -1,0 +1,68 @@
+---
+layout: default
+title: Home
+---
+
+<div class="homepage-grid">
+
+  <div class="main-col">
+    {% assign lead = site.posts.first %}
+    {% assign rest = site.posts | offset: 1 %}
+
+    {% if site.posts.size > 1 %}
+      <a class="lead-story" href="{{ lead.url | relative_url }}">
+        {% if lead.image %}<img src="{{ lead.image }}" alt="{{ lead.title }}">{% endif %}
+        <h1>{{ lead.title }}</h1>
+        <p>{{ lead.excerpt | strip_html | truncate: 180 }}</p>
+      </a>
+
+      <div class="article-grid" style="margin-top:30px;">
+        {% for post in rest limit:8 %}
+          <a class="article-card" href="{{ post.url | relative_url }}">
+            {% if post.image %}<img src="{{ post.image }}" alt="{{ post.title }}">{% endif %}
+            <h3>{{ post.title }}</h3>
+            <p>{{ post.excerpt | strip_html | truncate: 120 }}</p>
+          </a>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-state">Articles generated automatically will appear here on their next scheduled run.</div>
+    {% endif %}
+  </div>
+
+  <aside class="sidebar">
+    <div class="widget-box">
+      <h3>Market Overview</h3>
+      <div class="tv-widget" data-widget-src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js"
+           data-config='{"dateRange":"1D","showChart":false,"locale":"en","width":"100%","height":"400","isTransparent":true,"showSymbolLogo":true,"tabs":[{"title":"Indices","symbols":[{"s":"FOREXCOM:SPXUSD","d":"S&P 500"},{"s":"FOREXCOM:NSXUSD","d":"Nasdaq"},{"s":"FOREXCOM:DJI","d":"Dow 30"}]},{"title":"Crypto","symbols":[{"s":"BITSTAMP:BTCUSD","d":"Bitcoin"},{"s":"BITSTAMP:ETHUSD","d":"Ethereum"}]},{"title":"Forex","symbols":[{"s":"FX_IDC:EURUSD","d":"EUR/USD"},{"s":"FX_IDC:GBPUSD","d":"GBP/USD"}]}]}'>
+        <div class="tradingview-widget-container__widget"></div>
+      </div>
+    </div>
+
+    <div class="widget-box">
+      <h3>Economic Calendar</h3>
+      <div class="tv-widget" data-widget-src="https://s3.tradingview.com/external-embedding/embed-widget-events.js"
+           data-config='{"isTransparent":true,"width":"100%","height":"400","locale":"en","importanceFilter":"-1,0,1","countryFilter":"us,eu,gb"}'>
+        <div class="tradingview-widget-container__widget"></div>
+      </div>
+    </div>
+
+    <div class="widget-box">
+      <h3>More Headlines</h3>
+      <ul class="headline-list">
+        {% for item in site.data.aggregator limit:15 %}
+          <li>
+            {% if item.image and item.image != "" %}
+              <img src="{{ item.image }}" alt="" class="headline-thumb">
+            {% endif %}
+            <div class="headline-text">
+              <a href="{{ item.link }}" rel="nofollow noopener" target="_blank">{{ item.title }}</a>
+              <span class="source">{{ item.source }}</span>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </aside>
+
+</div>

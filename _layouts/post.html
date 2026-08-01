@@ -1,0 +1,26 @@
+---
+layout: default
+---
+<article class="post">
+  <h1>{{ page.title }}</h1>
+  <p class="post-meta">{{ page.date | date: "%B %d, %Y" }}
+    {% if page.tags %} · {{ page.tags | join: ", " }}{% endif %}
+  </p>
+
+  {% if page.image %}
+    <img class="post-image" src="{{ page.image }}" alt="{{ page.title }}">
+    {% if page.image_credit %}<p class="image-credit">{{ page.image_credit }}</p>{% endif %}
+  {% endif %}
+
+  {% include affiliate-disclosure.html %}
+
+  <div class="post-content">
+    {{ content }}
+  </div>
+
+  {% if page.source %}
+    <p class="source-note">Original story: <a href="{{ page.source }}" rel="nofollow noopener" target="_blank">source</a></p>
+  {% endif %}
+
+  {% include adsense-slot.html %}
+</article>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: 'en' }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+
+  {% seo %}
+  {% feed_meta %}
+
+  <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}?v={{ site.time | date: '%s' }}">
+</head>
+<body>
+  <div class="tv-widget" data-widget-src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js"
+       data-config='{"symbols":[{"proName":"FX_IDC:EURUSD","title":"EUR/USD"},{"proName":"BITSTAMP:BTCUSD","title":"Bitcoin"},{"proName":"BITSTAMP:ETHUSD","title":"Ethereum"},{"proName":"FOREXCOM:SPXUSD","title":"S&P 500"},{"proName":"FOREXCOM:NSXUSD","title":"Nasdaq"},{"proName":"TVC:GOLD","title":"Gold"}],"showSymbolLogo":true,"isTransparent":true,"displayMode":"adaptive","locale":"en"}'>
+    <div class="tradingview-widget-container__widget"></div>
+  </div>
+
+  <header class="site-header">
+    <a class="site-title" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+    <nav>
+      <a href="{{ '/' | relative_url }}">News</a>
+      <a href="{{ '/markets/' | relative_url }}">Markets</a>
+      <a href="{{ '/calculators/' | relative_url }}">Calculators</a>
+      <a href="{{ '/personal-finance/' | relative_url }}">Personal Finance</a>
+      <button class="theme-toggle" id="themeToggle" type="button">Dark</button>
+    </nav>
+  </header>
+
+  <main>
+    {{ content }}
+  </main>
+
+  {% include adsense-slot.html %}
+
+  <footer class="site-footer">
+    <p>&copy; {{ site.time | date: '%Y' }} {{ site.title }}</p>
+  </footer>
+
+  <script>
+    function currentTheme() {
+      return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+    }
+
+    function renderTVWidgets() {
+      const theme = currentTheme();
+      document.querySelectorAll('.tv-widget').forEach(function (el) {
+        const src = el.getAttribute('data-widget-src');
+        const config = JSON.parse(el.getAttribute('data-config'));
+        config.colorTheme = theme;
+
+        const inner = el.querySelector('.tradingview-widget-container__widget');
+        if (inner) inner.innerHTML = '';
+        const oldScript = el.querySelector('script');
+        if (oldScript) oldScript.remove();
+
+        const script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = src;
+        script.async = true;
+        script.text = JSON.stringify(config);
+        el.appendChild(script);
+      });
+    }
+
+    (function () {
+      const stored = localStorage.getItem('theme');
+      if (stored === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+    })();
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const btn = document.getElementById('themeToggle');
+      const setLabel = () => { btn.textContent = currentTheme() === 'dark' ? 'Light' : 'Dark'; };
+      setLabel();
+      renderTVWidgets();
+
+      btn.addEventListener('click', function () {
+        if (currentTheme() === 'dark') {
+          document.documentElement.removeAttribute('data-theme');
+          localStorage.setItem('theme', 'light');
+        } else {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          localStorage.setItem('theme', 'dark');
+        }
+        setLabel();
+        renderTVWidgets();
+      });
+    });
+  </script>
+</body>
+</html>
