@@ -1,0 +1,339 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --paper: #FFF1E5;
+  --card: #FFFFFF;
+  --ink: #14110F;
+  --gain: #0B6E4F;
+  --loss: #B13B2E;
+  --rule: #D9C9B8;
+  --muted: #7A6F62;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Inter', -apple-system, sans-serif;
+  line-height: 1.55;
+}
+
+h1, h2, h3, .serif {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.mono, .ticker, .post-meta, .headline-list .source, .calculator label, code {
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+a { color: inherit; }
+
+.ticker-wrap {
+  background: var(--ink);
+  color: var(--paper);
+  overflow: hidden;
+  white-space: nowrap;
+  border-bottom: 1px solid #000;
+}
+
+.ticker-track {
+  display: inline-block;
+  padding-left: 100%;
+  animation: scroll-ticker 38s linear infinite;
+}
+
+.ticker-track span {
+  display: inline-block;
+  padding: 8px 28px;
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+}
+
+.ticker-track .up { color: #6FCF97; }
+.ticker-track .down { color: #EB8375; }
+
+@keyframes scroll-ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track { animation: none; padding-left: 0; }
+}
+
+.site-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 22px 28px 18px;
+  border-bottom: 2px solid var(--ink);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.site-title {
+  font-family: 'Source Serif 4', serif;
+  font-weight: 700;
+  font-size: 1.9rem;
+  text-decoration: none;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+
+.site-header nav {
+  display: flex;
+  gap: 22px;
+}
+
+.site-header nav a {
+  text-decoration: none;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+  border-bottom: 2px solid transparent;
+  padding-bottom: 2px;
+}
+
+.site-header nav a:hover { border-bottom-color: var(--gain); }
+
+main {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 32px 28px 60px;
+}
+
+.own-articles h2, .aggregator h2, .calculators-page h1 {
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 500;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 10px;
+  margin-bottom: 22px;
+  color: var(--muted);
+}
+
+.article-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 26px;
+}
+
+.article-card {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  text-decoration: none;
+  color: var(--ink);
+  display: block;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.article-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(20,17,15,0.08);
+}
+
+.article-card img {
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+  display: block;
+}
+
+.article-card h3 {
+  font-size: 1.15rem;
+  padding: 16px 16px 6px;
+  line-height: 1.3;
+}
+
+.article-card p {
+  padding: 0 16px 16px;
+  color: var(--muted);
+  font-size: 0.92rem;
+  margin: 0;
+}
+
+.empty-state {
+  border: 1px dashed var(--rule);
+  padding: 28px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.headline-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.headline-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.headline-list a {
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.headline-list a:hover { color: var(--gain); }
+
+.headline-list .source {
+  color: var(--muted);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.post h1 {
+  font-size: 2.3rem;
+  line-height: 1.15;
+  margin-bottom: 10px;
+}
+
+.post-meta {
+  color: var(--muted);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 20px;
+}
+
+.post-image {
+  width: 100%;
+  max-height: 440px;
+  object-fit: cover;
+  margin: 20px 0 6px;
+  border: 1px solid var(--rule);
+}
+
+.image-credit, .source-note {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.post-content {
+  font-size: 1.08rem;
+  margin-top: 18px;
+}
+
+.post-content p { margin: 0 0 1.2em; }
+
+.affiliate-disclosure {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--gain);
+  padding: 12px 16px;
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 18px 0;
+}
+
+.calculator {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  padding: 24px;
+  margin-bottom: 26px;
+}
+
+.calculator h2 {
+  font-size: 1.2rem;
+  margin-bottom: 16px;
+}
+
+.calculator label {
+  display: block;
+  margin-bottom: 14px;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+}
+
+.calculator input {
+  display: block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 1rem;
+  padding: 10px;
+  width: 100%;
+  max-width: 320px;
+  margin-top: 6px;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.calculator button {
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  padding: 11px 22px;
+  font-family: 'IBM Plex Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.calculator button:hover { background: var(--gain); }
+
+.calculator p#mortgageResult, .calculator p#fxResult {
+  font-family: 'IBM Plex Mono', monospace;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--rule);
+}
+
+.ad-slot {
+  margin: 30px 0;
+  text-align: center;
+  border-top: 1px dashed var(--rule);
+  border-bottom: 1px dashed var(--rule);
+  padding: 6px 0;
+}
+
+.site-footer {
+  text-align: center;
+  padding: 26px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-family: 'IBM Plex Mono', monospace;
+  border-top: 2px solid var(--ink);
+}
+
+@media (max-width: 600px) {
+  .post h1 { font-size: 1.7rem; }
+  .site-title { font-size: 1.5rem; }
+}
+
+.headline-list li {
+  align-items: flex-start;
+}
+
+.headline-thumb {
+  width: 72px;
+  height: 54px;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1px solid var(--rule);
+}
+
+.headline-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}

@@ -1,0 +1,32 @@
+---
+layout: default
+title: Personal Finance
+permalink: /personal-finance/
+---
+
+<div class="calculators-page">
+<h1>Personal Finance</h1>
+</div>
+
+<p>Tools to plan your money:</p>
+<p><a href="{{ '/calculators/' | relative_url }}" class="serif" style="font-size:1.3rem;">Open the calculators →</a></p>
+
+{% include adsense-slot.html %}
+
+{% assign pf_posts = site.posts | where_exp: "post", "post.tags contains 'personal-finance'" %}
+<section class="own-articles" style="margin-top:30px;">
+  <h2>Personal Finance Articles</h2>
+  {% if pf_posts.size > 0 %}
+  <div class="article-grid">
+    {% for post in pf_posts %}
+      <a class="article-card" href="{{ post.url | relative_url }}">
+        {% if post.image %}<img src="{{ post.image }}" alt="{{ post.title }}">{% endif %}
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.excerpt | strip_html | truncate: 120 }}</p>
+      </a>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty-state">Personal finance articles generated automatically will appear here.</div>
+  {% endif %}
+</section>
