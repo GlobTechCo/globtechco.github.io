@@ -1,0 +1,31 @@
+---
+layout: default
+title: Home
+---
+
+<section class="own-articles">
+  <h2>Latest Articles</h2>
+  <div class="article-grid">
+    {% for post in site.posts limit:9 %}
+      <a class="article-card" href="{{ post.url | relative_url }}">
+        {% if post.image %}<img src="{{ post.image }}" alt="{{ post.title }}">{% endif %}
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.excerpt | strip_html | truncate: 120 }}</p>
+      </a>
+    {% endfor %}
+  </div>
+</section>
+
+{% include adsense-slot.html %}
+
+<section class="aggregator">
+  <h2>More Headlines</h2>
+  <ul class="headline-list">
+    {% for item in site.data.aggregator limit:30 %}
+      <li>
+        <a href="{{ item.link }}" rel="nofollow noopener" target="_blank">{{ item.title }}</a>
+        <span class="source">— {{ item.source }}</span>
+      </li>
+    {% endfor %}
+  </ul>
+</section>

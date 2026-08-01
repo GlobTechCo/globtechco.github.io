@@ -1,0 +1,4 @@
+# Once approved for Google AdSense, replace the line below with the exact
+# line AdSense gives you in your account (Sites -> your site -> View ads.txt
+# instructions). It looks like:
+# google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
