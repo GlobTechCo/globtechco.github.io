@@ -1,0 +1,36 @@
+# ---- Site identity (EDIT THESE with your own brand) ----
+title: "Your Finance Site"
+description: "Markets, news, and tools to understand your money."
+url: "https://your-username.github.io"   # change to your custom domain if you attach one
+baseurl: ""                              # "/repo-name" if not using a custom domain
+lang: en
+logo: /assets/logo.png                   # optional, add your own logo file later
+twitter:
+  username: your_twitter_handle
+  card: summary_large_image
+social:
+  name: "Your Finance Site"
+  links: []
+
+# ---- SEO / sitemap / feed plugins (all safe on GitHub Pages, no extra setup) ----
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-feed
+
+# ---- Behavior ----
+markdown: kramdown
+permalink: /:year/:month/:day/:title/
+paginate: 12
+paginate_path: "/page:num/"
+
+# ---- Your own settings used by pages/scripts ----
+adsense_client: ""     # fill in with "ca-pub-XXXXXXXXXXXXXXXX" once AdSense approves you
+affiliate_disclosure: "Some links on this site are affiliate links. We may earn a commission at no extra cost to you if you make a purchase through them."
+
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
