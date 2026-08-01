@@ -19,7 +19,8 @@ import json
 import hashlib
 import datetime
 import urllib.request
-import urllib.parse
+import urllib.parse 
+import urllib.error
 import xml.etree.ElementTree as ET
 
 # ----- Configuration -----
@@ -136,8 +137,12 @@ def call_claude(item):
         },
         method="POST",
     )
-    with urllib.request.urlopen(req, timeout=60) as resp:
-        result = json.loads(resp.read())
+    try:
+        with urllib.request.urlopen(req, timeout=60) as resp:
+            result = json.loads(resp.read())
+    except urllib.error.HTTPError as e:
+        body = e.read().decode("utf-8", errors="replace")
+        raise RuntimeError(f"Claude API error {e.code}: {body}") from e
 
     text = "".join(
         b.get("text", "") for b in result.get("content", []) if b.get("type") == "text"
