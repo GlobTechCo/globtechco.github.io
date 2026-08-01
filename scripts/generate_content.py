@@ -30,7 +30,7 @@ FEEDS = [f.strip() for f in os.environ.get(
 ).split(",") if f.strip()]
 
 ANTHROPIC_API_KEY = os.environ["ANTHROPIC_API_KEY"]
-ANTHROPIC_MODEL = os.environ.get("ANTHROPIC_MODEL", "claude-sonnet-4-6")
+ANTHROPIC_MODEL = os.environ.get("ANTHROPIC_MODEL", "claude-sonnet-5")
 PEXELS_API_KEY = os.environ.get("PEXELS_API_KEY", "")  # optional - skip images if not set
 
 POSTS_DIR = os.environ.get("POSTS_DIR", "_posts")
